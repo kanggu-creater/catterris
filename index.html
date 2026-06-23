@@ -6,34 +6,34 @@
 <title>켓트리스</title>
 <style>
   html,body{ margin:0; height:100%; overflow:hidden; }
-  @media (max-width:560px){ #app{padding:6px 6px 8px; align-items:center} h1{margin:1px 0 4px; font-size:18px} .hint{display:none} .topbar{margin-bottom:5px} .chips{margin-bottom:5px} .chip b{font-size:14px} #next{width:42px; height:42px} }
+  @media (max-width:560px){ #app{padding:5px 6px 7px; align-items:center} h1{margin:0 0 3px; font-size:16px} .hint{display:none} .topbar{margin-bottom:4px} .chips{margin-bottom:4px} .chip b{font-size:13px} #next{width:38px; height:38px} }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   #app { font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; min-height: 100%; background: linear-gradient(160deg, #ffe6f0 0%, #e7f0ff 55%, #f3e9ff 100%); color: #5a4a52; padding: 14px 10px 28px; display: flex; justify-content: center; user-select: none; }
   .wrap { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; }
   h1 { font-size: 22px; margin: 2px 0 12px; color: #d9678f; letter-spacing: -0.5px; }
 
-  .topbar { width: 100%; display: flex; gap: 8px; align-items: stretch; margin-bottom: 6px; }
-  .stagewrap { flex: 1; background: #ffffffcc; border-radius: 12px; padding: 6px 10px; box-shadow: 0 3px 10px #d9678f1a; display: flex; flex-direction: column; justify-content: center; }
+  .topbar { width: 100%; display: flex; gap: 7px; align-items: stretch; margin-bottom: 5px; }
+  .stagewrap { flex: 1; background: #ffffffcc; border-radius: 11px; padding: 5px 9px; box-shadow: 0 3px 10px #d9678f1a; display: flex; flex-direction: column; justify-content: center; }
   .stagehead { display: flex; align-items: baseline; gap: 4px; }
-  .stagehead span { font-size: 11px; color: #b48da0; }
-  .stagehead b { font-size: 19px; color: #d9678f; }
-  .stagehead i { font-style: normal; font-size: 12px; color: #c0a6b2; }
-  .stagehead em { font-style: normal; margin-left: auto; font-size: 11px; color: #8a7680; }
-  .bar { margin-top: 5px; height: 8px; background: #f1dde7; border-radius: 99px; overflow: hidden; }
+  .stagehead span { font-size: 10px; color: #b48da0; }
+  .stagehead b { font-size: 16px; color: #d9678f; }
+  .stagehead i { font-style: normal; font-size: 11px; color: #c0a6b2; }
+  .stagehead em { font-style: normal; margin-left: auto; font-size: 10px; color: #8a7680; }
+  .bar { margin-top: 4px; height: 7px; background: #f1dde7; border-radius: 99px; overflow: hidden; }
   .barfill { height: 100%; width: 0%; border-radius: 99px; background: linear-gradient(90deg, #ffcaa0, #ff9ec0, #ff7fa8); transition: width .25s ease; }
-  .nextbox { background: #ffffffcc; border-radius: 12px; padding: 3px 6px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 3px 10px #6d8fd91a; }
-  .nextbox span { font-size: 10px; color: #8da0b4; margin-bottom: 1px; }
-  #next { width: 46px; height: 46px; }
+  .nextbox { background: #ffffffcc; border-radius: 11px; padding: 2px 6px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 3px 10px #6d8fd91a; }
+  .nextbox span { font-size: 9px; color: #8da0b4; margin-bottom: 0; }
+  #next { width: 40px; height: 40px; }
 
-  .chips { width: 100%; display: flex; gap: 7px; margin-bottom: 7px; }
-  .chip { flex: 1; background: #ffffffcc; border-radius: 10px; padding: 3px 9px; display: flex; flex-direction: column; box-shadow: 0 3px 10px #d9678f14; }
+  .chips { width: 100%; display: flex; gap: 6px; margin-bottom: 6px; }
+  .chip { flex: 1; background: #ffffffcc; border-radius: 9px; padding: 3px 9px; display: flex; flex-direction: row; align-items: baseline; gap: 5px; box-shadow: 0 3px 10px #d9678f14; }
   .chip span { font-size: 10px; color: #b48da0; }
-  .chip b { font-size: 15px; color: #6a5560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chip b { font-size: 13px; color: #6a5560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .boardwrap { position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px #b06a8a33; }
   #board { display: block; background: #fff7fb; }
 
-  .overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #ffd9e788; backdrop-filter: blur(3px); padding: 14px; overflow-y: auto; }
+  .overlay { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #ffd9e7cc; backdrop-filter: blur(3px); padding: 16px; overflow-y: auto; z-index: 50; }
   .overlay.hidden { display: none; }
   .card { background: #fff; border-radius: 22px; padding: 20px; text-align: center; box-shadow: 0 8px 24px #00000022; max-width: 280px; position: relative; margin: auto; }
   .card.start { max-width: 300px; width: 100%; }
@@ -84,14 +84,14 @@
   .notes span:nth-child(5){ left: 48%; color:#ffd24d; animation-delay: .8s; }
   @keyframes floatUp { 0%{ top: 78%; opacity: 0; transform: scale(.6) } 15%{opacity:1} 100%{ top: 4%; opacity: 0; transform: scale(1.1) rotate(20deg) } }
 
-  .controls { width: 100%; max-width: 360px; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
-  .row { display: flex; gap: 7px; justify-content: center; }
-  .row.small { margin-top: 1px; }
-  .btn { flex: 1; border: none; background: #fff; color: #6a5560; border-radius: 13px; padding: 6px 0 4px; font-size: 19px; cursor: pointer; box-shadow: 0 3px 9px #b06a8a22; display: flex; flex-direction: column; align-items: center; gap: 0; transition: transform .06s, background .1s; }
-  .btn small { font-size: 10px; color: #b48da0; }
+  .controls { width: 100%; max-width: 360px; margin-top: 6px; display: flex; flex-direction: column; gap: 5px; }
+  .row { display: flex; gap: 6px; justify-content: center; }
+  .row.small { margin-top: 0; }
+  .btn { flex: 1; border: none; background: #fff; color: #6a5560; border-radius: 11px; padding: 4px 0 3px; font-size: 17px; cursor: pointer; box-shadow: 0 2px 7px #b06a8a22; display: flex; flex-direction: column; align-items: center; gap: 0; transition: transform .06s, background .1s; }
+  .btn small { font-size: 9px; color: #b48da0; }
   .btn:active { transform: scale(0.93); background: #ffeef5; }
-  .btn.wide { font-size: 14px; padding: 8px 0; font-weight: 700; color: #d9678f; }
-  .btn.mini { font-size: 12px; padding: 5px 0; font-weight: 600; }
+  .btn.wide { font-size: 13px; padding: 6px 0; font-weight: 700; color: #d9678f; }
+  .btn.mini { font-size: 11px; padding: 4px 0; font-weight: 600; }
   #rotBtn { max-width: 120px; }
   .hint { font-size: 11px; color: #b9a4ae; margin-top: 14px; text-align: center; line-height: 1.5; }
   @media (max-width: 380px){ h1{font-size:19px} .chip b{font-size:15px} }
