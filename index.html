@@ -5,29 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>켓트리스</title>
 <style>
-  html,body{ margin:0; height:100%; }
+  html,body{ margin:0; height:100%; overflow:hidden; }
+  @media (max-width:560px){ #app{padding:8px 6px 10px; align-items:center} h1{margin:2px 0 6px; font-size:20px} .hint{display:none} }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   #app { font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; min-height: 100%; background: linear-gradient(160deg, #ffe6f0 0%, #e7f0ff 55%, #f3e9ff 100%); color: #5a4a52; padding: 14px 10px 28px; display: flex; justify-content: center; user-select: none; }
   .wrap { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; }
   h1 { font-size: 22px; margin: 2px 0 12px; color: #d9678f; letter-spacing: -0.5px; }
 
-  .topbar { width: 100%; display: flex; gap: 10px; align-items: stretch; margin-bottom: 9px; }
-  .stagewrap { flex: 1; background: #ffffffcc; border-radius: 14px; padding: 8px 12px; box-shadow: 0 3px 10px #d9678f1a; display: flex; flex-direction: column; justify-content: center; }
+  .topbar { width: 100%; display: flex; gap: 8px; align-items: stretch; margin-bottom: 6px; }
+  .stagewrap { flex: 1; background: #ffffffcc; border-radius: 12px; padding: 6px 10px; box-shadow: 0 3px 10px #d9678f1a; display: flex; flex-direction: column; justify-content: center; }
   .stagehead { display: flex; align-items: baseline; gap: 4px; }
-  .stagehead span { font-size: 12px; color: #b48da0; }
-  .stagehead b { font-size: 22px; color: #d9678f; }
-  .stagehead i { font-style: normal; font-size: 13px; color: #c0a6b2; }
-  .stagehead em { font-style: normal; margin-left: auto; font-size: 12px; color: #8a7680; }
-  .bar { margin-top: 7px; height: 9px; background: #f1dde7; border-radius: 99px; overflow: hidden; }
+  .stagehead span { font-size: 11px; color: #b48da0; }
+  .stagehead b { font-size: 19px; color: #d9678f; }
+  .stagehead i { font-style: normal; font-size: 12px; color: #c0a6b2; }
+  .stagehead em { font-style: normal; margin-left: auto; font-size: 11px; color: #8a7680; }
+  .bar { margin-top: 5px; height: 8px; background: #f1dde7; border-radius: 99px; overflow: hidden; }
   .barfill { height: 100%; width: 0%; border-radius: 99px; background: linear-gradient(90deg, #ffcaa0, #ff9ec0, #ff7fa8); transition: width .25s ease; }
-  .nextbox { background: #ffffffcc; border-radius: 14px; padding: 6px 8px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 3px 10px #6d8fd91a; }
-  .nextbox span { font-size: 11px; color: #8da0b4; margin-bottom: 2px; }
-  #next { width: 64px; height: 64px; }
+  .nextbox { background: #ffffffcc; border-radius: 12px; padding: 3px 6px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 3px 10px #6d8fd91a; }
+  .nextbox span { font-size: 10px; color: #8da0b4; margin-bottom: 1px; }
+  #next { width: 46px; height: 46px; }
 
-  .chips { width: 100%; display: flex; gap: 8px; margin-bottom: 12px; }
-  .chip { flex: 1; background: #ffffffcc; border-radius: 12px; padding: 5px 10px; display: flex; flex-direction: column; box-shadow: 0 3px 10px #d9678f14; }
-  .chip span { font-size: 11px; color: #b48da0; }
-  .chip b { font-size: 17px; color: #6a5560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chips { width: 100%; display: flex; gap: 7px; margin-bottom: 7px; }
+  .chip { flex: 1; background: #ffffffcc; border-radius: 10px; padding: 3px 9px; display: flex; flex-direction: column; box-shadow: 0 3px 10px #d9678f14; }
+  .chip span { font-size: 10px; color: #b48da0; }
+  .chip b { font-size: 15px; color: #6a5560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .boardwrap { position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px #b06a8a33; }
   #board { display: block; background: #fff7fb; }
@@ -162,18 +163,27 @@
       <div class="overlay hidden" id="pauseOverlay">
         <div class="card"><div class="bigcat">😼</div><h2>잠깐 멈춤</h2><button class="play" id="resumeBtn">계속하기</button></div>
       </div>
+
+      <div class="overlay hidden" id="lbOverlay">
+        <div class="card start">
+          <h2>🏆 명예의 전당</h2>
+          <p>최고 점수 Top 10</p>
+          <ol id="lbBoard" class="lbList"><li class="empty">아직 기록이 없어요 🐾</li></ol>
+          <button class="play" id="closeLbBtn">닫기</button>
+        </div>
+      </div>
     </div>
 
     <div class="controls">
-      <div class="row"><button class="btn" id="rotBtn">🔄<small>돌리기</small></button></div>
       <div class="row">
         <button class="btn" id="leftBtn">◀<small>왼쪽</small></button>
-        <button class="btn" id="downBtn">⬇<small>내리기</small></button>
+        <button class="btn" id="rotBtn">🔄<small>돌리기</small></button>
         <button class="btn" id="rightBtn">▶<small>오른쪽</small></button>
       </div>
       <div class="row"><button class="btn wide" id="dropBtn">⏬ 뚝 떨어뜨리기</button></div>
       <div class="row small">
         <button class="btn mini" id="pauseBtn">⏸ 멈춤</button>
+        <button class="btn mini" id="lbBtn">🏆 전당</button>
         <button class="btn mini" id="muteBtn">🔊 소리</button>
       </div>
     </div>
@@ -191,9 +201,18 @@
   const boardCanvas=document.getElementById('board'), bctx=boardCanvas.getContext('2d');
   const nextCanvas=document.getElementById('next'), nctx=nextCanvas.getContext('2d');
   let CELL=30, dpr=Math.max(1,Math.min(2.5,window.devicePixelRatio||1));
-  function sizeBoard(){ const wrapW=Math.min(window.innerWidth-24,440); const maxByW=Math.floor(wrapW/COLS), maxByH=Math.floor((window.innerHeight*0.56)/ROWS); CELL=Math.max(16,Math.min(33,maxByW,maxByH));
-    boardCanvas.style.width=(COLS*CELL)+'px'; boardCanvas.style.height=(ROWS*CELL)+'px'; boardCanvas.width=COLS*CELL*dpr; boardCanvas.height=ROWS*CELL*dpr; bctx.setTransform(dpr,0,0,dpr,0,0); }
-  sizeBoard(); window.addEventListener('resize',()=>{sizeBoard();draw();});
+  function applyCell(c){ CELL=c; boardCanvas.style.width=(COLS*c)+'px'; boardCanvas.style.height=(ROWS*c)+'px'; boardCanvas.width=COLS*c*dpr; boardCanvas.height=ROWS*c*dpr; bctx.setTransform(dpr,0,0,dpr,0,0); }
+  function sizeBoard(){
+    const vh=window.innerHeight, app=document.getElementById('app');
+    const wrapW=Math.min(window.innerWidth-12,520);
+    let c=Math.max(14,Math.min(48,Math.floor(wrapW/COLS)));
+    applyCell(c);
+    let guard=0;
+    while(app.scrollHeight>vh && c>14 && guard<60){ c--; applyCell(c); guard++; }
+  }
+  sizeBoard();
+  window.addEventListener('resize',()=>{ sizeBoard(); if(grid)draw(); });
+  window.addEventListener('orientationchange',()=>setTimeout(()=>{ sizeBoard(); if(grid)draw(); },200));
 
   const COLORS={I:'#F6A56C',O:'#F7CE5B',T:'#C49BE0',S:'#94D49A',Z:'#F2A0BD',J:'#8FB8EC',L:'#EBC078'};
   const SHAPES={ I:[[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], O:[[1,1],[1,1]], T:[[0,1,0],[1,1,1],[0,0,0]], S:[[0,1,1],[1,1,0],[0,0,0]], Z:[[1,1,0],[0,1,1],[0,0,0]], J:[[1,0,0],[1,1,1],[0,0,0]], L:[[0,0,1],[1,1,1],[0,0,0]] };
@@ -509,7 +528,7 @@
     el.addEventListener('touchstart',start,{passive:false}); el.addEventListener('mousedown',start);
     ['touchend','touchcancel','mouseup','mouseleave'].forEach(ev=>el.addEventListener(ev,stop));
   }
-  bindHold('leftBtn',()=>move(-1),true); bindHold('rightBtn',()=>move(1),true); bindHold('downBtn',()=>softDrop(),true);
+  bindHold('leftBtn',()=>move(-1),true); bindHold('rightBtn',()=>move(1),true);
   document.getElementById('rotBtn').addEventListener('click',()=>{ensureAudio();rotate();});
   document.getElementById('dropBtn').addEventListener('click',()=>{ensureAudio();hardDrop();});
   document.getElementById('pauseBtn').addEventListener('click',togglePause);
@@ -517,6 +536,9 @@
   function togglePause(){ if(state==='playing'){state='paused';document.getElementById('pauseOverlay').classList.remove('hidden');} else if(state==='paused'){state='playing';last=0;document.getElementById('pauseOverlay').classList.add('hidden');} }
   document.getElementById('resumeBtn').addEventListener('click',togglePause);
   document.getElementById('nextStageBtn').addEventListener('click',()=>{ensureAudio();advanceStage();});
+  let lbPrevPlaying=false;
+  document.getElementById('lbBtn').addEventListener('click',()=>{ ensureAudio(); renderLB(); document.getElementById('lbBoard').innerHTML=document.getElementById('lbStart').innerHTML; if(state==='playing'){ lbPrevPlaying=true; state='paused'; } else { lbPrevPlaying=false; } document.getElementById('lbOverlay').classList.remove('hidden'); });
+  document.getElementById('closeLbBtn').addEventListener('click',()=>{ document.getElementById('lbOverlay').classList.add('hidden'); if(lbPrevPlaying){ state='playing'; last=0; } lbPrevPlaying=false; });
 
   function showStart(){ clearTimeout(stageTimer); ['stageOverlay','winOverlay','overOverlay','pauseOverlay'].forEach(id=>document.getElementById(id).classList.add('hidden')); document.getElementById('startOverlay').classList.remove('hidden'); state='ready'; renderLB(); const ni=document.getElementById('nameInput'); if(ni){ ni.value=(playerName&&playerName!=='냥이')?playerName:''; } }
   function startGame(){ ensureAudio(); const ni=document.getElementById('nameInput'); playerName=(ni&&ni.value.trim())? ni.value.trim().slice(0,8):'냥이'; ['startOverlay','overOverlay','winOverlay','stageOverlay','pauseOverlay'].forEach(id=>document.getElementById(id).classList.add('hidden')); reset(); state='playing'; last=0; }
