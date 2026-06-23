@@ -2,7 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="켓트리스">
+<meta name="theme-color" content="#ffe6f0">
 <title>켓트리스</title>
 <style>
   html,body{ margin:0; height:100%; overflow:hidden; }
@@ -92,7 +97,11 @@
   .btn:active { transform: scale(0.93); background: #ffeef5; }
   .btn.wide { font-size: 13px; padding: 6px 0; font-weight: 700; color: #d9678f; }
   .btn.mini { font-size: 11px; padding: 4px 0; font-weight: 600; }
-  #rotBtn { max-width: 120px; }
+  #rotBtn { max-width: none; }
+  .ministats { display: flex; gap: 8px; margin-top: 4px; font-size: 11px; align-items: baseline; }
+  .ministats > b { color: #d9678f; font-size: 12px; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ministats span { color: #b48da0; }
+  .ministats span b { color: #6a5560; }
   .hint { font-size: 11px; color: #b9a4ae; margin-top: 14px; text-align: center; line-height: 1.5; }
   @media (max-width: 380px){ h1{font-size:19px} .chip b{font-size:15px} }
 </style>
@@ -106,14 +115,9 @@
       <div class="stagewrap">
         <div class="stagehead"><span>단계</span> <b id="stage">1</b><i>/10</i> <em id="stageTarget">통과까지 600</em></div>
         <div class="bar"><div class="barfill" id="barfill"></div></div>
+        <div class="ministats"><b id="who">냥이</b><span>점수 <b id="score">0</b></span><span>줄 <b id="lines">0</b></span></div>
       </div>
       <div class="nextbox"><span>다음</span><canvas id="next" width="96" height="96"></canvas></div>
-    </div>
-
-    <div class="chips">
-      <div class="chip"><span>도전자</span><b id="who">-</b></div>
-      <div class="chip"><span>점수</span><b id="score">0</b></div>
-      <div class="chip"><span>줄</span><b id="lines">0</b></div>
     </div>
 
     <div class="boardwrap">
@@ -178,9 +182,9 @@
       <div class="row">
         <button class="btn" id="leftBtn">◀<small>왼쪽</small></button>
         <button class="btn" id="rotBtn">🔄<small>돌리기</small></button>
+        <button class="btn" id="dropBtn">⏬<small>뚝떨</small></button>
         <button class="btn" id="rightBtn">▶<small>오른쪽</small></button>
       </div>
-      <div class="row"><button class="btn wide" id="dropBtn">⏬ 뚝 떨어뜨리기</button></div>
       <div class="row small">
         <button class="btn mini" id="pauseBtn">⏸ 멈춤</button>
         <button class="btn mini" id="lbBtn">🏆 전당</button>
