@@ -179,8 +179,8 @@
     <div class="controls">
       <div class="row">
         <button class="btn" id="leftBtn">◀<small>왼쪽</small></button>
-        <button class="btn" id="rotBtn">🔄<small>돌리기</small></button>
-        <button class="btn" id="dropBtn">⏬<small>뚝떨</small></button>
+        <button class="btn" id="dropBtn">⏬<small>뚝떨어지기</small></button>
+        <button class="btn" id="rotBtn">🔄<small>회전</small></button>
         <button class="btn" id="rightBtn">▶<small>오른쪽</small></button>
       </div>
     </div>
@@ -419,7 +419,6 @@
   }
   requestAnimationFrame(loop);
 
-  /* ===== audio ===== */
   let muted=false, actx=null, master=null, stageTimer=null, comp=null, noiseBuf=null;
   function makeNoise(){ const len=Math.floor(actx.sampleRate*0.4); const buf=actx.createBuffer(1,len,actx.sampleRate); const d=buf.getChannelData(0); for(let i=0;i<len;i++)d[i]=Math.random()*2-1; return buf; }
   function ensureAudio(){ if(!actx){ try{ actx=new (window.AudioContext||window.webkitAudioContext)(); comp=actx.createDynamicsCompressor(); comp.threshold.value=-14; comp.ratio.value=3; master=actx.createGain(); master.gain.value=0.8; master.connect(comp); comp.connect(actx.destination); noiseBuf=makeNoise(); }catch(e){} } if(actx&&actx.state==='suspended')actx.resume(); preloadCats(); }
@@ -460,7 +459,19 @@
   function kick(t0){ if(muted||!actx)return; const now=actx.currentTime+t0; const o=actx.createOscillator(),g=actx.createGain(); o.type='sine'; o.frequency.setValueAtTime(150,now); o.frequency.exponentialRampToValueAtTime(48,now+0.12); g.gain.setValueAtTime(0.24,now); g.gain.exponentialRampToValueAtTime(0.0001,now+0.16); o.connect(g);g.connect(master);o.start(now);o.stop(now+0.18); }
   function hat(t0,vol){ if(muted||!actx||!noiseBuf)return; const now=actx.currentTime+t0; const s=actx.createBufferSource(); s.buffer=noiseBuf; const f=actx.createBiquadFilter(); f.type='highpass'; f.frequency.value=7500; const g=actx.createGain(); g.gain.setValueAtTime(vol||0.04,now); g.gain.exponentialRampToValueAtTime(0.0001,now+0.04); s.connect(f);f.connect(g);g.connect(master); s.start(now); s.stop(now+0.05); }
   function snare(t0){ if(muted||!actx||!noiseBuf)return; const now=actx.currentTime+t0; const s=actx.createBufferSource(); s.buffer=noiseBuf; const f=actx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=1900; const g=actx.createGain(); g.gain.setValueAtTime(0.13,now); g.gain.exponentialRampToValueAtTime(0.0001,now+0.12); s.connect(f);f.connect(g);g.connect(master); s.start(now); s.stop(now+0.14); }
-  function sfx(k){ ensureAudio(); if(k==='move')note(560,0,0.05,0.03,'sine'); else if(k==='rot')note(720,0,0.06,0.035,'triangle'); else if(k==='drop')note(180,0,0.12,0.05,'sine'); }
+  function sfx(k){
+    ensureAudio();
+    if(k==='move'){
+      note(560,0,0.06,0.12,'sine');
+    } else if(k==='rot'){
+      // 상승하는 두 음 → 회전 느낌
+      note(600,0,0.06,0.12,'triangle');
+      note(900,0.06,0.07,0.10,'triangle');
+    } else if(k==='drop'){
+      note(600,0,0.06,0.12,'triangle');
+      note(900,0.06,0.07,0.10,'triangle');
+    }
+  }
   function lineMeow(n){
     ensureAudio();
     if(n===1){ playCat('meow',0.9); }
