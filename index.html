@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="켓트리스">
 <meta name="theme-color" content="#ffe6f0">
+<link rel="manifest" href="./manifest.json">
 <title>켓트리스</title>
 <style>
   html,body{ margin:0; height:100%; overflow:hidden; }
@@ -569,5 +570,6 @@
   grid=Array.from({length:ROWS},()=>new Array(COLS).fill(null)); stage=1; stageScore=0; stageTarget=TARGETS[0]; score=0; lines=0; updateHUD(); draw(); loadLB();
 })();
 </script>
+<script>if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');</script>
 </body>
 </html>
