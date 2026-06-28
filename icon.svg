@@ -1,60 +1,41 @@
 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- 배경 -->
   <defs>
-    <radialGradient id="bg" cx="50%" cy="45%" r="60%">
+    <radialGradient id="bgg" cx="50%" cy="45%" r="65%">
       <stop offset="0%" stop-color="#fff0f7"/>
       <stop offset="100%" stop-color="#ffd6e8"/>
     </radialGradient>
-    <radialGradient id="facehl" cx="50%" cy="30%" r="60%">
-      <stop offset="0%" stop-color="rgba(255,255,220,0.38)"/>
-      <stop offset="100%" stop-color="rgba(255,255,220,0)"/>
-    </radialGradient>
   </defs>
-  <rect width="512" height="512" rx="113" ry="113" fill="url(#bg)"/>
+
+  <!-- 배경 -->
+  <rect width="512" height="512" rx="113" ry="113" fill="url(#bgg)"/>
+
+  <!-- 몸통 -->
+  <rect x="75" y="75" width="361" height="361" rx="118" ry="118" fill="#F6A56C"/>
+  <!-- 상단 하이라이트 -->
+  <rect x="75" y="75" width="361" height="181" rx="109" ry="109" fill="#FFC188"/>
 
   <!-- 귀 -->
-  <polygon points="142,182 90,60 230,152" fill="#F6A56C"/>
-  <polygon points="370,182 422,60 282,152" fill="#F6A56C"/>
-  <polygon points="148,178 108,80 218,152" fill="#F7A8C0"/>
-  <polygon points="364,178 404,80 294,152" fill="#F7A8C0"/>
-
-  <!-- 얼굴 -->
-  <ellipse cx="256" cy="290" rx="178" ry="164" fill="#F6A56C"/>
-  <ellipse cx="256" cy="290" rx="178" ry="164" fill="url(#facehl)"/>
+  <polygon points="148,102 93,28 227,82" fill="#F6A56C"/>
+  <polygon points="364,102 419,28 285,82" fill="#F6A56C"/>
+  <!-- 귀 안쪽 -->
+  <polygon points="148,89 115,59 195,79" fill="rgba(255,180,200,0.85)"/>
+  <polygon points="364,89 397,59 317,79" fill="rgba(255,180,200,0.85)"/>
 
   <!-- 볼터치 -->
-  <ellipse cx="122" cy="308" rx="52" ry="32" fill="rgba(255,120,160,0.28)"/>
-  <ellipse cx="390" cy="308" rx="52" ry="32" fill="rgba(255,120,160,0.28)"/>
+  <ellipse cx="165" cy="307" rx="32" ry="21" fill="rgba(255,120,150,0.40)"/>
+  <ellipse cx="347" cy="307" rx="32" ry="21" fill="rgba(255,120,150,0.40)"/>
 
-  <!-- 눈 흰자 -->
-  <ellipse cx="178" cy="268" rx="38" ry="44" fill="#fff"/>
-  <ellipse cx="334" cy="268" rx="38" ry="44" fill="#fff"/>
-  <!-- 홍채 -->
-  <ellipse cx="178" cy="272" rx="26" ry="36" fill="#F4C152"/>
-  <ellipse cx="334" cy="272" rx="26" ry="36" fill="#F4C152"/>
-  <!-- 동공 -->
-  <ellipse cx="178" cy="272" rx="11" ry="30" fill="#1a0f0a"/>
-  <ellipse cx="334" cy="272" rx="11" ry="30" fill="#1a0f0a"/>
-  <!-- 눈 테두리 -->
-  <ellipse cx="178" cy="268" rx="38" ry="44" fill="none" stroke="#3a2a30" stroke-width="5"/>
-  <ellipse cx="334" cy="268" rx="38" ry="44" fill="none" stroke="#3a2a30" stroke-width="5"/>
+  <!-- 눈 -->
+  <ellipse cx="192" cy="265" rx="21" ry="26" fill="#4a3a40"/>
+  <ellipse cx="320" cy="265" rx="21" ry="26" fill="#4a3a40"/>
   <!-- 눈 하이라이트 -->
-  <circle cx="190" cy="252" r="10" fill="white"/>
-  <circle cx="346" cy="252" r="10" fill="white"/>
+  <circle cx="198" cy="257" r="7" fill="#fff"/>
+  <circle cx="327" cy="257" r="7" fill="#fff"/>
 
   <!-- 코 -->
-  <polygon points="256,318 234,294 278,294" fill="#E8758F"/>
+  <polygon points="256,288 245,275 267,275" fill="#e87f9a"/>
 
   <!-- 입 -->
-  <path d="M220,342 Q234,360 248,342" fill="none" stroke="#9a5a6a" stroke-width="7" stroke-linecap="round"/>
-  <path d="M264,342 Q278,360 292,342" fill="none" stroke="#9a5a6a" stroke-width="7" stroke-linecap="round"/>
-
-  <!-- 수염 왼쪽 -->
-  <line x1="230" y1="318" x2="80" y2="302" stroke="rgba(90,60,70,0.32)" stroke-width="5" stroke-linecap="round"/>
-  <line x1="228" y1="330" x2="76" y2="330" stroke="rgba(90,60,70,0.32)" stroke-width="5" stroke-linecap="round"/>
-  <line x1="232" y1="342" x2="84" y2="358" stroke="rgba(90,60,70,0.32)" stroke-width="5" stroke-linecap="round"/>
-  <!-- 수염 오른쪽 -->
-  <line x1="282" y1="318" x2="432" y2="302" stroke="rgba(90,60,70,0.32)" stroke-width="5" stroke-linecap="round"/>
-  <line x1="284" y1="330" x2="436" y2="330" stroke="rgba(90,60,70,0.32)" stroke-width="5" stroke-linecap="round"/>
-  <line x1="280" y1="342" x2="428" y2="358" stroke="rgba(90,60,70,0.32)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M256,301 A17,17 0 0 1 222,301" fill="none" stroke="#b85f78" stroke-width="7" stroke-linecap="round"/>
+  <path d="M290,301 A17,17 0 0 1 256,301" fill="none" stroke="#b85f78" stroke-width="7" stroke-linecap="round"/>
 </svg>
